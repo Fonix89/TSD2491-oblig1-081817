@@ -59,12 +59,24 @@ namespace oblig1_081817.Models
                 "🌪️", "🌪️",
             };
 
+        static List<string> foodEmoji = new List<string>()
+        {
+            "🍕", "🍕",
+            "🍔", "🍔",
+            "🍟", "🍟",
+            "🌭", "🌭",
+            "🍿", "🍿",
+            "🧀", "🧀",
+            "🍖", "🍖",
+            "🥩", "🥩",
+        };
+
         static Random random = new Random();
         public List<string> shuffledEmoji = pickRandomEmoji();
 
         static List<string> pickRandomEmoji()
         {
-            int randomIndex = random.Next(0, 4);
+            int randomIndex = random.Next(0, 5);
 
             switch (randomIndex)
             {
@@ -76,6 +88,8 @@ namespace oblig1_081817.Models
                     return carEmoji = carEmoji.OrderBy(items => random.Next()).ToList(); ;
                 case 3:
                     return weatherEmoji = weatherEmoji.OrderBy(items => random.Next()).ToList(); ;
+                case 4:
+                    return foodEmoji = foodEmoji.OrderBy(items => random.Next()).ToList(); ;
                 default:
                     throw new Exception("Invalid random index");
             }
