@@ -21,6 +21,7 @@ namespace oblig1_081817.Controllers
 
         [HttpPost]
         public IActionResult ButtonClick(string animal, string description)
+            //Lagt til ButtonClick i Modul/Commit4
         {
             _matchingGameModels.ButtonClick(animal, description);
             return View("Index", _matchingGameModels);

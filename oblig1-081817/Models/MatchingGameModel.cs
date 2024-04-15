@@ -11,6 +11,8 @@ namespace oblig1_081817.Models
     {
         public int matchesFound = 0;
 
+        public string GameStatus { get; set; }
+
         static List <string> randomEmoji = new List<string>()
         {
             "🦾", "🦾",
@@ -105,9 +107,12 @@ namespace oblig1_081817.Models
         string lastAnimalFound = string.Empty;
         string lastDescription = string.Empty;
 
-
         public void ButtonClick(string animal, string animalDescription)
         {
+            if (matchesFound == 0)
+            {
+                GameStatus = "Game Running";
+            }
             if (lastAnimalFound == string.Empty)
             {
                 // First selection of the pari.  Remember it
@@ -125,6 +130,7 @@ namespace oblig1_081817.Models
                 matchesFound++;
                 if (matchesFound == 8)
                 {
+                    GameStatus = "Game Complete";
                     SetUpGame();
                 }
             }
