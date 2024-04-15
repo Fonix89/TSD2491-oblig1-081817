@@ -4,14 +4,18 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
+using System.ComponentModel;
+using oblig1_081817.Controllers;
 
 namespace oblig1_081817.Models
 {
     public class MatchingGameModels
     {
         public int matchesFound = 0;
+        public int GamesPlayed = 0;
 
         public string GameStatus { get; set; }
+        public User CurrentUser { get; set; } 
 
         static List <string> randomEmoji = new List<string>()
         {
@@ -96,11 +100,10 @@ namespace oblig1_081817.Models
                     throw new Exception("Invalid random index");
             }
         }
-        private void SetUpGame()
+        public void SetUpGame()
         {
             Random random = new Random();
             shuffledEmoji = pickRandomEmoji();
-            
             matchesFound = 0;
         }
 
@@ -115,13 +118,13 @@ namespace oblig1_081817.Models
             }
             if (lastAnimalFound == string.Empty)
             {
-                // First selection of the pari.  Remember it
+                
                 lastAnimalFound = animal;
                 lastDescription = animalDescription;
             }
             else if ((lastAnimalFound == animal) && (animalDescription != lastDescription))
             {
-                // Match found! Reset for the next pair.
+                
                 lastAnimalFound = string.Empty;
 
                 shuffledEmoji = shuffledEmoji
@@ -132,6 +135,7 @@ namespace oblig1_081817.Models
                 {
                     GameStatus = "Game Complete";
                     SetUpGame();
+         
                 }
             }
             else

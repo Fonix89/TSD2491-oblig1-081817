@@ -1,0 +1,21 @@
+﻿@model List<User>
+
+<h2>Leaderboard</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Games Played</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Username</td>
+                <td>@user.GamesPlayed</td>
+            </tr>
+        }
+    </tbody>
+</table>
