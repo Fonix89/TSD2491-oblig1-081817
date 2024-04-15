@@ -31,14 +31,39 @@
             <div class="col-3">
                 @using (Html.BeginForm("ButtonClick", "Home", FormMethod.Post))
                 {
-                    <input type = "hidden" name="animal" value="@animal" />
+                    <input type="hidden" name="animal" value="@animal" />
                     <input type="hidden" name="description" value="@uniqueDescription" />
                     <input type="submit" value="@animal" class="button" />
                 }
             </div>
         }
     </div>
+
     <div class="row">
         <h2>Matches found: @Model.matchesFound</h2>
+        @if (Model.GameStatus == "Game Running")
+        {
+            <h3>Game Status: @Model.GameStatus</h3>
+        }
+        else if (Model.GameStatus == "Game Complete")
+        {
+            <h3>Game Status: @Model.GameStatus</h3>
+        }
+    </div>
+
+    <div class="row">
+        <h2>Register new user</h2>
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+        {
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="Write username" />
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        }
+    </div>
+
+    <div class="row">
+        <a href="@Url.Action("Leaderboard", "Home")" class="btn btn-secondary">Show Leaderboard</a>
     </div>
 </div>
+

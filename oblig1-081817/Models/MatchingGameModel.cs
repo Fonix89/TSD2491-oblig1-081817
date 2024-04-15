@@ -4,12 +4,18 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Timers;
+using System.ComponentModel;
+using oblig1_081817.Controllers;
 
 namespace oblig1_081817.Models
 {
     public class MatchingGameModels
     {
         public int matchesFound = 0;
+        public int GamesPlayed = 0;
+
+        public string GameStatus { get; set; }
+        public User CurrentUser { get; set; } 
 
         static List <string> randomEmoji = new List<string>()
         {
@@ -59,12 +65,24 @@ namespace oblig1_081817.Models
                 "🌪️", "🌪️",
             };
 
+        static List<string> foodEmoji = new List<string>()
+        {
+            "🍕", "🍕",
+            "🍔", "🍔",
+            "🍟", "🍟",
+            "🌭", "🌭",
+            "🍿", "🍿",
+            "🧀", "🧀",
+            "🍖", "🍖",
+            "🥩", "🥩",
+        };
+
         static Random random = new Random();
         public List<string> shuffledEmoji = pickRandomEmoji();
 
         static List<string> pickRandomEmoji()
         {
-            int randomIndex = random.Next(0, 4);
+            int randomIndex = random.Next(0, 5);
 
             switch (randomIndex)
             {
@@ -76,33 +94,37 @@ namespace oblig1_081817.Models
                     return carEmoji = carEmoji.OrderBy(items => random.Next()).ToList(); ;
                 case 3:
                     return weatherEmoji = weatherEmoji.OrderBy(items => random.Next()).ToList(); ;
+                case 4:
+                    return foodEmoji = foodEmoji.OrderBy(items => random.Next()).ToList(); ;
                 default:
                     throw new Exception("Invalid random index");
             }
         }
-        private void SetUpGame()
+        public void SetUpGame()
         {
             Random random = new Random();
             shuffledEmoji = pickRandomEmoji();
-            
             matchesFound = 0;
         }
 
         string lastAnimalFound = string.Empty;
         string lastDescription = string.Empty;
 
-
         public void ButtonClick(string animal, string animalDescription)
         {
+            if (matchesFound == 0)
+            {
+                GameStatus = "Game Running";
+            }
             if (lastAnimalFound == string.Empty)
             {
-                // First selection of the pari.  Remember it
+                
                 lastAnimalFound = animal;
                 lastDescription = animalDescription;
             }
             else if ((lastAnimalFound == animal) && (animalDescription != lastDescription))
             {
-                // Match found! Reset for the next pair.
+                
                 lastAnimalFound = string.Empty;
 
                 shuffledEmoji = shuffledEmoji
@@ -111,7 +133,9 @@ namespace oblig1_081817.Models
                 matchesFound++;
                 if (matchesFound == 8)
                 {
+                    GameStatus = "Game Complete";
                     SetUpGame();
+         
                 }
             }
             else
